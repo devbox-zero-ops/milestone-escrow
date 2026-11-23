@@ -6,9 +6,11 @@ Built for **Gnome Tavern Hackathon** — a zero-dependency, stateful Gno realm t
 
 ## Live Deployment (`onyx-1` Testnet)
 
-- **Live `gnoweb` Realm URL**: `https://onyx.testnets.gno.land/r/g1kkcw4krnhxadt08gjxs5ud2jhv87rtlzt29thy/milestone_escrow`
-- **Live RPC Companion Explorer**: `https://devbox-zero-ops.github.io/milestone-escrow/`
+- **Interactive Demo & Onyx RPC Console**: https://devbox-zero-ops.github.io/milestone-escrow/
+- **Walkthrough Video (720p, 45s)**: https://github.com/devbox-zero-ops/milestone-escrow/releases/download/v1.0.0/milestone-escrow-demo.webm
+- **Live `gnoweb` Realm URL**: https://onyx.testnets.gno.land/r/g1kkcw4krnhxadt08gjxs5ud2jhv87rtlzt29thy/milestone_escrow
 - **Realm Package Path**: `gno.land/r/g1kkcw4krnhxadt08gjxs5ud2jhv87rtlzt29thy/milestone_escrow`
+- **Deploy Block / TX**: Block `#1355214` · TX `p2wbOV2Y1nh4YaCOVcCywDBHqK+Kl8eMhFO3HpsOn8M=` (`onyx-1` GPAO Queue: https://gpas.onyx.testnets.gno.land/)
 - **Network / Chain ID**: `onyx-1` (`https://rpc.onyx.testnets.gno.land:443`)
 
 ## Why MilestoneEscrow?
