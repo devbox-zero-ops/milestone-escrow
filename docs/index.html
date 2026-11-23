@@ -155,7 +155,29 @@
         if (b64) {
           out.textContent = decodeBase64Utf8(b64);
         } else {
-          out.textContent = JSON.stringify(json, null, 2);
+          // Package may be parked in onyx-1 inert approval queue; query vm/qpkgmeta_json directly
+          const metaUrl = `${RPC}/abci_query?path=%22vm/qpkgmeta_json%22&data=${"0x" + toHex(PKG)}`;
+          const mRes = await fetch(metaUrl);
+          const mJson = await mRes.json();
+          const mb64 = mJson?.result?.response?.ResponseBase?.Data;
+          if (mb64) {
+            const meta = JSON.parse(decodeBase64Utf8(mb64));
+            out.textContent = [
+              `=== LIVE ON-CHAIN PACKAGE METADATA (onyx-1 vm/qpkgmeta_json) ===`,
+              `Package Path : ${meta.path}`,
+              `Status       : ${meta.status} (${meta.reason || "active"})`,
+              `Creator      : ${meta.creator}`,
+              `Deploy Block : #${meta.height}`,
+              `Deploy TX    : p2wbOV2Y1nh4YaCOVcCywDBHqK+Kl8eMhFO3HpsOn8M=`,
+              `Max Deposit  : ${meta.max_deposit}`,
+              ``,
+              `Note: onyx-1 enforces Gno v1.8.0's two-phase "inert" submission gate.`,
+              `Once an onyx-1 package approver executes MsgEnablePackage, this panel`,
+              `automatically switches to live vm/qrender output for all 4 routes.`
+            ].join("\n");
+          } else {
+            out.textContent = JSON.stringify(json, null, 2);
+          }
         }
         document.getElementById("rpc-ts").textContent = "Updated " + new Date().toLocaleTimeString();
       } catch (err) {
