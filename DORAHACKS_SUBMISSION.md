@@ -10,7 +10,7 @@ Trust-minimized multi-milestone `ugnot` escrow & basis-point arbiter dispute-spl
 - **Onyx gnoweb URL**: https://onyx.testnets.gno.land/r/g1kkcw4krnhxadt08gjxs5ud2jhv87rtlzt29thy/milestone_escrow
 - **Deploy Block / TX**: Block `#1355214` · TX `p2wbOV2Y1nh4YaCOVcCywDBHqK+Kl8eMhFO3HpsOn8M=`
 - **GPAO Approval Queue**: https://gpas.onyx.testnets.gno.land/
-- **Demo Video**: (YouTube URL / GitHub Release `v1.0.0` `https://github.com/devbox-zero-ops/milestone-escrow/releases/download/v1.0.0/milestone-escrow-demo.webm`)
+- **Demo Video**: https://www.youtube.com/watch?v=UYglHe0Hnzg (Backup: https://github.com/devbox-zero-ops/milestone-escrow/releases/download/v1.0.0/milestone-escrow-demo.webm)
 
 ## Problem & Solution
 DAO grants, open-source bounties, and freelance engineering contracts routinely fail between all-or-nothing upfront trust and slow off-chain arbitration. **MilestoneEscrow** is a pure Gno (`v1.8.0`) on-chain realm that locks native `ugnot` deposits into discrete milestones, releases each milestone strictly under Checks-Effects-Interactions (CEI) accounting, supports optional basis-point (`0..10000 bps`) arbiter dispute splits with zero dust loss, enforces a global conservation invariant (`locked + released + refunded == total_deposited`), and exposes a 4-route human-readable `gnoweb` UI (`""`, `contract/<id>`, `stats`, `guide`).
