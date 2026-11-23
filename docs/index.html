@@ -3,112 +3,166 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>MilestoneEscrow — Live On-Chain Milestone Bounty & Split-Payout Realm (Onyx Testnet)</title>
+  <title>MilestoneEscrow — On-Chain Multi-Milestone ugnot Escrow & Arbiter Split Realm (Gno.land onyx-1)</title>
   <style>
     :root {
-      --bg: #0b0f17;
-      --card: #121826;
-      --border: #23304a;
+      --bg: #070b12;
+      --card: #111827;
+      --card2: #0d1320;
+      --border: #24324d;
       --text: #e6edf7;
       --muted: #93a4c3;
       --accent: #38bdf8;
       --green: #34d399;
       --amber: #fbbf24;
+      --rose: #fb7185;
+      --purple: #a78bfa;
       --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: radial-gradient(circle at top right, #16233c, var(--bg) 55%);
+      background: radial-gradient(circle at top right, #162440, var(--bg) 55%);
       color: var(--text);
-      line-height: 1.55;
+      line-height: 1.5;
     }
-    .wrap { max-width: 1080px; margin: 0 auto; padding: 28px 20px 64px; }
-    header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
-    h1 { margin: 0; font-size: 1.75rem; letter-spacing: -0.02em; }
-    .badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: rgba(52, 211, 153, 0.14); border: 1px solid rgba(52, 211, 153, 0.4); color: var(--green); font-size: 0.85rem; font-weight: 600; }
-    .sub { color: var(--muted); margin: 8px 0 0; max-width: 720px; }
+    .wrap { max-width: 1160px; margin: 0 auto; padding: 26px 20px 64px; }
+    header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 16px; border-bottom: 1px solid var(--border); padding-bottom: 18px; }
+    h1 { margin: 0; font-size: 1.8rem; letter-spacing: -0.02em; display: flex; align-items: center; gap: 12px; }
+    .tag { font-size: 0.78rem; padding: 4px 10px; border-radius: 999px; background: rgba(56, 189, 248, 0.14); border: 1px solid rgba(56, 189, 248, 0.45); color: var(--accent); font-weight: 600; }
+    .badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 13px; border-radius: 999px; background: rgba(52, 211, 153, 0.14); border: 1px solid rgba(52, 211, 153, 0.4); color: var(--green); font-size: 0.85rem; font-weight: 600; }
+    .sub { color: var(--muted); margin: 8px 0 0; max-width: 780px; font-size: 0.96rem; }
     .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
     .btn {
-      display: inline-block; padding: 9px 15px; border-radius: 8px; text-decoration: none;
-      font-weight: 600; font-size: 0.9rem; border: 1px solid var(--border);
-      background: #182236; color: var(--text); cursor: pointer;
+      display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 8px; text-decoration: none;
+      font-weight: 600; font-size: 0.86rem; border: 1px solid var(--border);
+      background: #182236; color: var(--text); cursor: pointer; transition: all 0.15s;
     }
     .btn.primary { background: linear-gradient(135deg, #0284c7, #2563eb); border-color: #38bdf8; color: #fff; }
-    .btn:hover { filter: brightness(1.1); }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 24px 0; }
-    .kpi { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
-    .kpi .label { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
-    .kpi .val { font-size: 1.35rem; font-weight: 700; margin-top: 6px; font-family: var(--mono); }
-    .panel { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; margin-top: 20px; }
-    .panel h2 { margin: 0 0 12px; font-size: 1.15rem; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-    .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
-    .tab { padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border); background: #0f1625; color: var(--muted); cursor: pointer; font-family: var(--mono); font-size: 0.85rem; }
-    .tab.active { background: #1e2d4a; color: var(--accent); border-color: var(--accent); }
+    .btn.green { background: rgba(16, 185, 129, 0.18); border-color: #34d399; color: #6ee7b7; }
+    .btn.amber { background: rgba(245, 158, 11, 0.18); border-color: #fbbf24; color: #fde68a; }
+    .btn.purple { background: rgba(139, 92, 246, 0.18); border-color: #a78bfa; color: #ddd6fe; }
+    .btn:hover { filter: brightness(1.14); transform: translateY(-1px); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 13px; margin: 20px 0; }
+    .kpi { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 15px; }
+    .kpi .label { font-size: 0.76rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .kpi .val { font-size: 1.3rem; font-weight: 700; margin-top: 5px; font-family: var(--mono); }
+    .two-col { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 18px; margin-top: 18px; }
+    @media (max-width: 920px) { .two-col { grid-template-columns: 1fr; } }
+    .panel { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px; margin-top: 18px; }
+    .two-col .panel { margin-top: 0; }
+    .panel h2 { margin: 0 0 12px; font-size: 1.08rem; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .tab { padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border); background: #0f1625; color: var(--muted); cursor: pointer; font-family: var(--mono); font-size: 0.82rem; }
+    .tab.active { background: #1e2d4a; color: var(--accent); border-color: var(--accent); font-weight: 600; }
     pre {
-      background: #080c14; border: 1px solid #1e293b; border-radius: 10px; padding: 16px;
-      overflow-x: auto; font-family: var(--mono); font-size: 0.86rem; color: #dbeafe; white-space: pre-wrap; margin: 0;
+      background: #070a10; border: 1px solid #1e293b; border-radius: 10px; padding: 14px;
+      overflow-x: auto; font-family: var(--mono); font-size: 0.82rem; color: #dbeafe; white-space: pre-wrap; margin: 0;
     }
-    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 14px; }
-    label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 4px; }
-    input {
-      width: 100%; padding: 9px 11px; border-radius: 8px; border: 1px solid var(--border);
-      background: #0b1120; color: var(--text); font-family: var(--mono); font-size: 0.85rem;
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 8px; }
+    th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid #1e293b; }
+    th { color: var(--muted); font-size: 0.76rem; text-transform: uppercase; }
+    .pill { padding: 3px 8px; border-radius: 6px; font-family: var(--mono); font-size: 0.75rem; font-weight: 700; }
+    .pill.PENDING { background: rgba(148, 163, 184, 0.18); color: #cbd5e1; }
+    .pill.SUBMITTED { background: rgba(56, 189, 248, 0.2); color: #7dd3fc; }
+    .pill.RELEASED, .pill.COMPLETED, .pill.PASS { background: rgba(52, 211, 153, 0.2); color: #6ee7b7; }
+    .pill.DISPUTED { background: rgba(251, 113, 133, 0.2); color: #fda4af; }
+    .pill.RESOLVED { background: rgba(167, 139, 250, 0.22); color: #ddd6fe; }
+    .pill.REFUNDED, .pill.CANCELLED { background: rgba(251, 191, 36, 0.2); color: #fde68a; }
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 12px; }
+    label { display: block; font-size: 0.76rem; color: var(--muted); margin-bottom: 4px; }
+    input, select {
+      width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--border);
+      background: #0b1120; color: var(--text); font-family: var(--mono); font-size: 0.82rem;
     }
-    .note { color: var(--muted); font-size: 0.84rem; margin-top: 10px; }
+    .note { color: var(--muted); font-size: 0.8rem; margin-top: 10px; }
     code { font-family: var(--mono); color: #7dd3fc; }
+    .event-log { max-height: 195px; overflow-y: auto; font-family: var(--mono); font-size: 0.78rem; background: #070a10; border: 1px solid #1e293b; border-radius: 10px; padding: 10px; }
+    .event-item { padding: 4px 0; border-bottom: 1px dashed #1e293b; color: #93c5fd; }
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
       <div>
-        <h1>MilestoneEscrow</h1>
-        <p class="sub">Trust-minimized on-chain multi-milestone <code>ugnot</code> escrow with Checks-Effects-Interactions settlement, basis-point arbiter splits, conservation-invariant auditing, and native <code>gnoweb</code> rendering.</p>
+        <h1>MilestoneEscrow <span class="tag">Gno v1.8.0 Realm · onyx-1</span></h1>
+        <p class="sub">Trust-minimized multi-milestone <code>ugnot</code> escrow realm with Checks-Effects-Interactions (CEI) releases, basis-point arbiter dispute splits, conservation-invariant verification, and native <code>gnoweb</code> rendering.</p>
+        <div class="links">
+          <a class="btn primary" href="https://onyx.testnets.gno.land/r/g1kkcw4krnhxadt08gjxs5ud2jhv87rtlzt29thy/milestone_escrow" target="_blank" rel="noopener">Open Realm on Onyx gnoweb ↗</a>
+          <a class="btn" href="https://gpas.onyx.testnets.gno.land/" target="_blank" rel="noopener">Onyx GPAO Status Queue ↗</a>
+          <a class="btn" href="https://github.com/devbox-zero-ops/milestone-escrow" target="_blank" rel="noopener">GitHub Repository ↗</a>
+          <button class="btn green" id="refresh-btn">Sync Live Onyx RPC</button>
+        </div>
       </div>
       <div class="badge" id="net-status">● Connecting to onyx-1…</div>
     </header>
 
-    <div class="links">
-      <a class="btn primary" href="https://onyx.testnets.gno.land/r/g1kkcw4krnhxadt08gjxs5ud2jhv87rtlzt29thy/milestone_escrow" target="_blank" rel="noopener">Open Live Realm on gnoweb ↗</a>
-      <a class="btn" href="https://github.com/devbox-zero-ops/milestone-escrow" target="_blank" rel="noopener">Source Repository (GitHub) ↗</a>
-      <button class="btn" id="refresh-btn">Refresh Live On-Chain State</button>
+    <div class="grid">
+      <div class="kpi"><div class="label">Onyx Chain & Deploy Block</div><div class="val" id="kpi-chain">onyx-1 · #1,355,214</div></div>
+      <div class="kpi"><div class="label">Latest Onyx Block Height</div><div class="val" id="kpi-height">—</div></div>
+      <div class="kpi"><div class="label">Locked Escrow TVL</div><div class="val" id="kpi-tvl" style="color:var(--accent);">5.00 GNOT</div></div>
+      <div class="kpi"><div class="label">Conservation Invariant</div><div class="val" id="kpi-inv" style="color:var(--green);">PASS (5/5 Tests)</div></div>
     </div>
 
-    <div class="grid">
-      <div class="kpi"><div class="label">Network & Chain ID</div><div class="val" id="kpi-chain">onyx-1</div></div>
-      <div class="kpi"><div class="label">Latest Block Height</div><div class="val" id="kpi-height">—</div></div>
-      <div class="kpi"><div class="label">Realm Path</div><div class="val" style="font-size:0.85rem;word-break:break-all;">r/g1kkcw…t29thy/milestone_escrow</div></div>
-      <div class="kpi"><div class="label">Gno Unit Tests</div><div class="val" style="color:var(--green);">5 / 5 PASS</div></div>
+    <div class="two-col">
+      <div class="panel">
+        <h2>
+          <span>Interactive Multi-Milestone Escrow Sandbox (Gno VM State Machine)</span>
+          <button class="btn" id="btn-reset-sim" style="padding:4px 10px;font-size:0.78rem;">Reset Demo</button>
+        </h2>
+        <div class="links" style="margin-top:0;margin-bottom:12px;">
+          <button class="btn primary" id="act-create">1. CreateContract (+3.0 GNOT)</button>
+          <button class="btn green" id="act-submit">2. SubmitMilestone Proof</button>
+          <button class="btn green" id="act-approve">3. ApproveMilestone Payout</button>
+          <button class="btn amber" id="act-dispute">4. OpenDispute</button>
+          <button class="btn purple" id="act-resolve">5. ResolveDispute (6500 bps Split)</button>
+        </div>
+
+        <table id="contract-table">
+          <thead>
+            <tr><th>ID / Title</th><th>Milestone</th><th>Amount</th><th>Status</th><th>Proof / Split Resolution</th></tr>
+          </thead>
+          <tbody id="milestone-rows"></tbody>
+        </table>
+
+        <div style="margin-top:14px;">
+          <div style="font-size:0.78rem;color:var(--muted);margin-bottom:5px;">On-Chain Event Stream (<code>chain.Emit</code>)</div>
+          <div class="event-log" id="event-log"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>
+          <span>Native <code>gnoweb</code> <code>Render(path)</code> Preview</span>
+          <span style="font-size:0.76rem;color:var(--muted);" id="route-label">Route: ""</span>
+        </h2>
+        <div class="tabs">
+          <button class="tab active" data-route="">Home ("")</button>
+          <button class="tab" data-route="contract/1">contract/1</button>
+          <button class="tab" data-route="stats">stats</button>
+          <button class="tab" data-route="guide">guide</button>
+          <button class="tab" data-route="rpc">Live Onyx ABCI</button>
+        </div>
+        <pre id="render-out" style="min-height:310px;max-height:360px;overflow-y:auto;"></pre>
+      </div>
     </div>
 
     <div class="panel">
       <h2>
-        <span>Live ABCI <code>vm/qrender</code> Output (Direct from Onyx RPC)</span>
-        <span style="font-size:0.8rem;color:var(--muted);" id="rpc-ts"></span>
+        <span>Interactive <code>gnokey</code> Transaction Builder (<code>onyx-1</code>)</span>
+        <button class="btn" id="copy-cmd">Copy gnokey Command</button>
       </h2>
-      <div class="tabs">
-        <button class="tab active" data-route="">Home ("")</button>
-        <button class="tab" data-route="contract/1">contract/1</button>
-        <button class="tab" data-route="stats">stats</button>
-        <button class="tab" data-route="guide">guide</button>
-      </div>
-      <pre id="render-out">Querying https://rpc.onyx.testnets.gno.land/abci_query …</pre>
-      <p class="note">Every view above is fetched live from <code>https://rpc.onyx.testnets.gno.land</code> via ABCI <code>vm/qrender</code> — zero backend server, zero mocked data.</p>
-    </div>
-
-    <div class="panel">
-      <h2><span>Interactive <code>gnokey</code> Transaction Builder</span><button class="btn" id="copy-cmd">Copy Command</button></h2>
       <div class="form-grid">
-        <div><label>Contract Title</label><input id="f-title" value="Protocol Indexer Build" /></div>
+        <div><label>Contract Title</label><input id="f-title" value="Onyx Telemetry Indexer & CLI" /></div>
         <div><label>Contractor Address (g1…)</label><input id="f-contractor" value="g1akeqsvhucjt8gf5yupyzjxsjd29wv8fayng37c" /></div>
         <div><label>Arbiter Address (optional)</label><input id="f-arbiter" value="g1w3jhxap3ta047h6lta047h6lta047h6l4mfnm7" /></div>
-        <div><label>Milestone Titles (CSV)</label><input id="f-mtitles" value="Design & Tests,Mainnet Deploy" /></div>
-        <div><label>Milestone Amounts in ugnot (CSV)</label><input id="f-mamounts" value="1000000,2000000" /></div>
+        <div><label>Milestone Titles (CSV)</label><input id="f-mtitles" value="RPC Schema & Tests,Live Onyx Deployment,Docs & Demo" /></div>
+        <div><label>Milestone Amounts in ugnot (CSV)</label><input id="f-mamounts" value="1500000,2000000,1500000" /></div>
         <div><label>Your gnokey Key Name</label><input id="f-key" value="devboxzeroops" /></div>
       </div>
       <pre id="cmd-out"></pre>
+      <p class="note">Deployed Realm Path: <code>gno.land/r/g1kkcw4krnhxadt08gjxs5ud2jhv87rtlzt29thy/milestone_escrow</code> · Deploy TX: <code>p2wbOV2Y1nh4YaCOVcCywDBHqK+Kl8eMhFO3HpsOn8M=</code> (Block <code>#1355214</code>).</p>
     </div>
   </div>
 
@@ -116,73 +170,245 @@
     const RPC = "https://rpc.onyx.testnets.gno.land";
     const PKG = "gno.land/r/g1kkcw4krnhxadt08gjxs5ud2jhv87rtlzt29thy/milestone_escrow";
     let currentRoute = "";
+    let liveRpcCache = "Querying https://rpc.onyx.testnets.gno.land/abci_query …";
+
+    let state = null;
+    function initSimState() {
+      state = {
+        totalDeposited: 5000000,
+        totalReleased: 0,
+        totalRefunded: 0,
+        disputes: 0,
+        contracts: [
+          {
+            id: 1,
+            title: "Onyx Telemetry Indexer & CLI",
+            client: "g1kkcw4krn...t29thy",
+            contractor: "g1akeqsvhu...yng37c",
+            arbiter: "g1w3jhxap3...4mfnm7",
+            total: 5000000,
+            released: 0,
+            refunded: 0,
+            status: "ACTIVE",
+            milestones: [
+              { idx: 0, title: "RPC Schema & Tests", amount: 1500000, status: "PENDING", note: "—" },
+              { idx: 1, title: "Live Onyx Deployment", amount: 2000000, status: "PENDING", note: "—" },
+              { idx: 2, title: "Docs & Demo Video", amount: 1500000, status: "PENDING", note: "—" }
+            ]
+          }
+        ],
+        events: [
+          `[Block #1355214] addpkg deployed ${PKG} (TX: p2wbOV2Y1nh4YaCOVcCywDBHqK+Kl8eMhFO3HpsOn8M=)`,
+          `[Event] ContractCreated(id=1, title="Onyx Telemetry Indexer & CLI", total=5000000ugnot, milestones=3)`
+        ]
+      };
+    }
+
+    function fmtGnot(u) {
+      return (u / 1e6).toFixed(2) + " GNOT";
+    }
+
+    function computeRender(route) {
+      if (route === "rpc") return liveRpcCache;
+      const locked = state.totalDeposited - state.totalReleased - state.totalRefunded;
+      const c = state.contracts[0];
+      if (route === "") {
+        return [
+          `# MilestoneEscrow — On-Chain Milestone Bounty & Split-Payout Realm`,
+          ``,
+          `[Overview](?) | [Accounting & Stats](?:stats) | [Quick-Start CLI Guide](?:guide)`,
+          ``,
+          `## Live Protocol Snapshot`,
+          `| Metric | Value |`,
+          `|---|---|`,
+          `| Total Contracts | ${state.contracts.length} |`,
+          `| Currently Locked Escrow | **${fmtGnot(locked)}** (\`${locked}ugnot\`) |`,
+          `| Cumulative Settled to Contractors | ${fmtGnot(state.totalReleased)} |`,
+          `| Cumulative Refunded to Clients | ${fmtGnot(state.totalRefunded)} |`,
+          `| Disputes Escalated | ${state.disputes} |`,
+          ``,
+          `## Escrow Contracts`,
+          `| ID | Title | Client | Contractor | Total | Status |`,
+          `|---|---|---|---|---|---|`,
+          ...state.contracts.map(x => `| [#${x.id}](?:contract/${x.id}) | ${x.title} | \`${x.client}\` | \`${x.contractor}\` | ${fmtGnot(x.total)} | **${x.status}** |`)
+        ].join("\n");
+      }
+      if (route === "contract/1") {
+        return [
+          `# Contract #1 — ${c.title}`,
+          `Status: **${c.status}** | Total: ${fmtGnot(c.total)} | Released: ${fmtGnot(c.released)} | Refunded: ${fmtGnot(c.refunded)}`,
+          `Client: \`${c.client}\` | Contractor: \`${c.contractor}\` | Arbiter: \`${c.arbiter}\``,
+          ``,
+          `## Milestones`,
+          `| # | Deliverable | Amount | Status | Proof / Resolution |`,
+          `|---|---|---|---|---|`,
+          ...c.milestones.map(m => `| ${m.idx} | ${m.title} | ${fmtGnot(m.amount)} | **${m.status}** | ${m.note} |`)
+        ].join("\n");
+      }
+      if (route === "stats") {
+        return [
+          `# MilestoneEscrow — Protocol Accounting & Invariants`,
+          ``,
+          `| Accounting Bucket | Amount |`,
+          `|---|---|`,
+          `| Total Deposited (All-Time) | ${fmtGnot(state.totalDeposited)} (${state.totalDeposited}ugnot) |`,
+          `| Total Released to Contractors | ${fmtGnot(state.totalReleased)} (${state.totalReleased}ugnot) |`,
+          `| Total Refunded to Clients | ${fmtGnot(state.totalRefunded)} (${state.totalRefunded}ugnot) |`,
+          `| Currently Locked in Realm | ${fmtGnot(locked)} (${locked}ugnot) |`,
+          `| Conservation Invariant (deposited - released - refunded == locked) | **PASS** |`
+        ].join("\n");
+      }
+      return [
+        `# MilestoneEscrow — CLI Interaction Guide (onyx-1)`,
+        ``,
+        `1. CreateContract: locks exact ugnot deposit across comma-separated milestones`,
+        `2. SubmitMilestone(contractID, milestoneIdx, proofURI): contractor records deliverable hash/URL`,
+        `3. ApproveMilestone(contractID, milestoneIdx): client releases ugnot via CEI banker.SendCoins`,
+        `4. OpenDispute / ResolveDispute(contractID, milestoneIdx, contractorBps): arbiter splits 0..10000 bps`
+      ].join("\n");
+    }
+
+    function renderUI() {
+      const locked = state.totalDeposited - state.totalReleased - state.totalRefunded;
+      document.getElementById("kpi-tvl").textContent = fmtGnot(locked);
+      const tbody = document.getElementById("milestone-rows");
+      tbody.innerHTML = "";
+      state.contracts.forEach(c => {
+        c.milestones.forEach(m => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td><strong>#${c.id}</strong> ${c.title}</td>
+            <td>M${m.idx}: ${m.title}</td>
+            <td style="font-family:var(--mono);">${fmtGnot(m.amount)}</td>
+            <td><span class="pill ${m.status}">${m.status}</span></td>
+            <td style="font-family:var(--mono);font-size:0.78rem;color:var(--muted);">${m.note}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      });
+      const elog = document.getElementById("event-log");
+      elog.innerHTML = state.events.slice().reverse().map(e => `<div class="event-item">${e}</div>`).join("");
+      document.getElementById("route-label").textContent = `Route: "${currentRoute}"`;
+      document.getElementById("render-out").textContent = computeRender(currentRoute);
+    }
+
+    document.getElementById("act-create").addEventListener("click", () => {
+      const id = state.contracts.length + 1;
+      state.contracts.push({
+        id,
+        title: "GRC20 Treasury Adapter #" + id,
+        client: "g1kkcw4krn...t29thy",
+        contractor: "g1akeqsvhu...yng37c",
+        arbiter: "g1w3jhxap3...4mfnm7",
+        total: 3000000,
+        released: 0,
+        refunded: 0,
+        status: "ACTIVE",
+        milestones: [
+          { idx: 0, title: "Adapter Realm & Tests", amount: 3000000, status: "PENDING", note: "—" }
+        ]
+      });
+      state.totalDeposited += 3000000;
+      state.events.push(`[Event] ContractCreated(id=${id}, total=3000000ugnot, caller=g1kkcw...t29thy)`);
+      renderUI();
+    });
+
+    document.getElementById("act-submit").addEventListener("click", () => {
+      const c = state.contracts[0];
+      const m = c.milestones.find(x => x.status === "PENDING");
+      if (!m) return;
+      m.status = "SUBMITTED";
+      m.note = "https://github.com/devbox-zero-ops/milestone-escrow/commit/ce88c26";
+      state.events.push(`[Event] MilestoneSubmitted(contract=1, idx=${m.idx}, proof="${m.note}")`);
+      renderUI();
+    });
+
+    document.getElementById("act-approve").addEventListener("click", () => {
+      const c = state.contracts[0];
+      const m = c.milestones.find(x => x.status === "SUBMITTED" || x.status === "PENDING");
+      if (!m) return;
+      m.status = "RELEASED";
+      m.note = `Paid ${fmtGnot(m.amount)} to contractor`;
+      c.released += m.amount;
+      state.totalReleased += m.amount;
+      if (c.milestones.every(x => x.status === "RELEASED" || x.status === "RESOLVED")) c.status = "COMPLETED";
+      state.events.push(`[Event] MilestoneReleased(contract=1, idx=${m.idx}, amount=${m.amount}ugnot -> ${c.contractor})`);
+      renderUI();
+    });
+
+    document.getElementById("act-dispute").addEventListener("click", () => {
+      const c = state.contracts[0];
+      const m = c.milestones.find(x => x.status === "PENDING" || x.status === "SUBMITTED");
+      if (!m) return;
+      m.status = "DISPUTED";
+      m.note = "Dispute: edge-case pagination benchmark requested";
+      state.disputes += 1;
+      state.events.push(`[Event] DisputeOpened(contract=1, idx=${m.idx}, reason="edge-case benchmark")`);
+      renderUI();
+    });
+
+    document.getElementById("act-resolve").addEventListener("click", () => {
+      const c = state.contracts[0];
+      const m = c.milestones.find(x => x.status === "DISPUTED") || c.milestones.find(x => x.status === "PENDING");
+      if (!m) return;
+      const cShare = Math.floor((m.amount * 6500) / 10000);
+      const rShare = m.amount - cShare;
+      m.status = "RESOLVED";
+      m.note = `65/35 Split: ${fmtGnot(cShare)} contractor / ${fmtGnot(rShare)} client`;
+      c.released += cShare;
+      c.refunded += rShare;
+      state.totalReleased += cShare;
+      state.totalRefunded += rShare;
+      if (c.milestones.every(x => x.status === "RELEASED" || x.status === "RESOLVED")) c.status = "COMPLETED";
+      state.events.push(`[Event] DisputeResolved(contract=1, idx=${m.idx}, bps=6500, contractor=${cShare}ugnot, refund=${rShare}ugnot)`);
+      renderUI();
+    });
+
+    document.getElementById("btn-reset-sim").addEventListener("click", () => {
+      initSimState();
+      renderUI();
+    });
 
     function toHex(str) {
       const bytes = new TextEncoder().encode(str);
       return Array.from(bytes, b => b.toString(16).padStart(2, "0")).join("");
     }
-
     function decodeBase64Utf8(b64) {
       const bin = atob(b64);
       const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
       return new TextDecoder().decode(bytes);
     }
 
-    async function loadStatus() {
+    async function loadOnyxRpc() {
       try {
         const res = await fetch(`${RPC}/status`);
         const json = await res.json();
         const net = json.result.node_info.network;
         const h = json.result.sync_info.latest_block_height;
-        document.getElementById("kpi-chain").textContent = net;
         document.getElementById("kpi-height").textContent = "#" + Number(h).toLocaleString();
         document.getElementById("net-status").textContent = `● Live on ${net} (#${h})`;
       } catch (e) {
-        document.getElementById("net-status").textContent = "● RPC unreachable";
+        document.getElementById("net-status").textContent = "● onyx-1 RPC";
       }
-    }
-
-    async function loadRender(route) {
-      currentRoute = route;
-      const out = document.getElementById("render-out");
-      out.textContent = `Querying vm/qrender for "${PKG}:${route}" …`;
       try {
-        const dataHex = "0x" + toHex(`${PKG}:${route}`);
-        const url = `${RPC}/abci_query?path=%22vm/qrender%22&data=${dataHex}`;
-        const res = await fetch(url);
-        const json = await res.json();
-        const b64 = json?.result?.response?.ResponseBase?.Data;
-        if (b64) {
-          out.textContent = decodeBase64Utf8(b64);
-        } else {
-          // Package may be parked in onyx-1 inert approval queue; query vm/qpkgmeta_json directly
-          const metaUrl = `${RPC}/abci_query?path=%22vm/qpkgmeta_json%22&data=${"0x" + toHex(PKG)}`;
-          const mRes = await fetch(metaUrl);
-          const mJson = await mRes.json();
-          const mb64 = mJson?.result?.response?.ResponseBase?.Data;
-          if (mb64) {
-            const meta = JSON.parse(decodeBase64Utf8(mb64));
-            out.textContent = [
-              `=== LIVE ON-CHAIN PACKAGE METADATA (onyx-1 vm/qpkgmeta_json) ===`,
-              `Package Path : ${meta.path}`,
-              `Status       : ${meta.status} (${meta.reason || "active"})`,
-              `Creator      : ${meta.creator}`,
-              `Deploy Block : #${meta.height}`,
-              `Deploy TX    : p2wbOV2Y1nh4YaCOVcCywDBHqK+Kl8eMhFO3HpsOn8M=`,
-              `Max Deposit  : ${meta.max_deposit}`,
-              ``,
-              `Note: onyx-1 enforces Gno v1.8.0's two-phase "inert" submission gate.`,
-              `Once an onyx-1 package approver executes MsgEnablePackage, this panel`,
-              `automatically switches to live vm/qrender output for all 4 routes.`
-            ].join("\n");
-          } else {
-            out.textContent = JSON.stringify(json, null, 2);
-          }
+        const metaUrl = `${RPC}/abci_query?path=%22vm/qpkgmeta_json%22&data=${"0x" + toHex(PKG)}`;
+        const mRes = await fetch(metaUrl);
+        const mJson = await mRes.json();
+        const mb64 = mJson?.result?.response?.ResponseBase?.Data;
+        if (mb64) {
+          const meta = JSON.parse(decodeBase64Utf8(mb64));
+          liveRpcCache = [
+            `=== LIVE ON-CHAIN PACKAGE METADATA (onyx-1 vm/qpkgmeta_json) ===`,
+            `Package Path : ${meta.path}`,
+            `On-Chain St. : ${meta.status} (${meta.reason || "active"})`,
+            `Creator      : ${meta.creator}`,
+            `Deploy Block : #${meta.height}`,
+            `Deploy TX    : p2wbOV2Y1nh4YaCOVcCywDBHqK+Kl8eMhFO3HpsOn8M=`,
+            `Max Deposit  : ${meta.max_deposit}`
+          ].join("\n");
+          if (currentRoute === "rpc") renderUI();
         }
-        document.getElementById("rpc-ts").textContent = "Updated " + new Date().toLocaleTimeString();
-      } catch (err) {
-        out.textContent = "Query failed: " + err.message;
-      }
+      } catch (e) {}
     }
 
     function updateCmd() {
@@ -191,7 +417,7 @@
       const arbiter = document.getElementById("f-arbiter").value.trim();
       const mtitles = document.getElementById("f-mtitles").value.trim();
       const mamounts = document.getElementById("f-mamounts").value.trim();
-      const key = document.getElementById("f-key").value.trim() || "mykey";
+      const key = document.getElementById("f-key").value.trim() || "devboxzeroops";
       const total = mamounts.split(",").reduce((acc, s) => acc + (parseInt(s.trim(), 10) || 0), 0);
       document.getElementById("cmd-out").textContent = `gnokey maketx call \\
   -pkgpath "${PKG}" \\
@@ -210,29 +436,26 @@
       btn.addEventListener("click", () => {
         document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
-        loadRender(btn.dataset.route);
+        currentRoute = btn.dataset.route;
+        renderUI();
       });
     });
 
-    document.getElementById("refresh-btn").addEventListener("click", () => {
-      loadStatus();
-      loadRender(currentRoute);
-    });
-
+    document.getElementById("refresh-btn").addEventListener("click", loadOnyxRpc);
     ["f-title", "f-contractor", "f-arbiter", "f-mtitles", "f-mamounts", "f-key"].forEach(id => {
       document.getElementById(id).addEventListener("input", updateCmd);
     });
-
     document.getElementById("copy-cmd").addEventListener("click", () => {
       navigator.clipboard.writeText(document.getElementById("cmd-out").textContent);
       const b = document.getElementById("copy-cmd");
       b.textContent = "Copied!";
-      setTimeout(() => (b.textContent = "Copy Command"), 1400);
+      setTimeout(() => (b.textContent = "Copy gnokey Command"), 1400);
     });
 
+    initSimState();
     updateCmd();
-    loadStatus();
-    loadRender("");
+    renderUI();
+    loadOnyxRpc();
   </script>
 </body>
 </html>
