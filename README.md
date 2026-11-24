@@ -9,9 +9,11 @@ Built for **Gnome Tavern Hackathon** — a zero-dependency, stateful Gno realm t
 - **Interactive Demo & Onyx RPC Console**: https://devbox-zero-ops.github.io/milestone-escrow/
 - **Walkthrough Video (YouTube, 720p)**: https://www.youtube.com/watch?v=UYglHe0Hnzg
 - **Direct Video Backup (GitHub Release v1.0.0)**: https://github.com/devbox-zero-ops/milestone-escrow/releases/download/v1.0.0/milestone-escrow-demo.webm
-- **Live `gnoweb` Realm URL**: https://onyx.testnets.gno.land/r/g1kkcw4krnhxadt08gjxs5ud2jhv87rtlzt29thy/milestone_escrow
+- **Live `gnoweb` Realm URL**: https://onyx.testnets.gno.land/r/g1kkcw4krnhxadt08gjxs5ud2jhv87rtlzt29thy/milestone_escrow (**LIVE · HTTP 200**)
 - **Realm Package Path**: `gno.land/r/g1kkcw4krnhxadt08gjxs5ud2jhv87rtlzt29thy/milestone_escrow`
-- **Deploy Block / TX**: Block `#1355214` · TX `p2wbOV2Y1nh4YaCOVcCywDBHqK+Kl8eMhFO3HpsOn8M=` (`onyx-1` GPAO Queue: https://gpas.onyx.testnets.gno.land/)
+- **Deploy Block / TX**: Block `#1355214` · TX `p2wbOV2Y1nh4YaCOVcCywDBHqK+Kl8eMhFO3HpsOn8M=` (`status: live`)
+- **Live On-Chain `CreateContract` TX (5,000,000 `ugnot` locked across 3 milestones)**: Block `#1383170` · TX `mDDFATHqhtD3ZBYdaBIknuDaacY7QJZLGC/QYCTyXZE=`
+- **Live On-Chain `ApproveMilestone(1, 0)` TX (1,500,000 `ugnot` settled to contractor, 3.5 GNOT locked)**: Block `#1383171` · TX `W7giaB5uNAWRKOUxZBipc+lF0ULmRi3B3F+d4JF3nQ8=`
 - **Network / Chain ID**: `onyx-1` (`https://rpc.onyx.testnets.gno.land:443`)
 
 ## Why MilestoneEscrow?
